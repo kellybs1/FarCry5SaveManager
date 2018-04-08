@@ -17,7 +17,9 @@ namespace FarCry5SaveManager
         public MainForm()
         {
             InitializeComponent();
-            saveController = new SaveController(textBoxFolderPath, listBoxUbiIDs, listBoxBackedUpSaves, textBoxSaveInfo, buttonBackup, buttonDeleteSave);
+            saveController = new SaveController(textBoxFolderPath, listBoxUbiIDs, listBoxBackedUpSaves, 
+                                                textBoxSaveInfo, textBoxBackupTitle, buttonBackup, 
+                                                buttonDeleteSave, buttonLoadSave);
         }
       
 
@@ -51,7 +53,7 @@ namespace FarCry5SaveManager
 
         private void buttonLoadSave_Click(object sender, EventArgs e)
         {
-
+            saveController.LoadSave();
         }
 
         private void buttonDeleteSave_Click(object sender, EventArgs e)

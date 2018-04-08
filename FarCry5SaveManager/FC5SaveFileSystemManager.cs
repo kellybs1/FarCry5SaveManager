@@ -10,6 +10,7 @@ namespace FarCry5SaveManager
     public class FC5SaveFileSystemManager
     {
         public event EventHandler BackupsUpdatedEvent;
+        public event EventHandler BackupLoadedEvent;
 
         // Constructor
         //---------------------------------
@@ -39,6 +40,19 @@ namespace FarCry5SaveManager
 
         // Public methods
         //---------------------------------
+
+        public void OverWriteCurrentSaveWithBackup(string savePath)
+        {
+            // TODO
+            // Delete current save file
+            // Overwrite with back up
+
+            //Trigger refresh - make sure controller refreshes current save on this event
+            
+            OnBackupLoaded();
+        }
+
+
         public string GetFileInformation(string filePath)
         {
             // If bothexist return both info
@@ -94,7 +108,7 @@ namespace FarCry5SaveManager
             }
         }
 
-        public bool BackupSave(string idSaveDir)
+        public bool BackupSave(string idSaveDir, string title)
         {
             string direc = "";
             try
@@ -115,7 +129,7 @@ namespace FarCry5SaveManager
                 folderName = folderName.Replace(" ", "");
 
                 // Create folder and save path for deletion upon failure
-                string backupLocation = myPath + @"\" + folderName;
+                string backupLocation = myPath + @"\" + title + folderName;
                 Directory.CreateDirectory(backupLocation);
                 direc = backupLocation;
 
@@ -157,6 +171,11 @@ namespace FarCry5SaveManager
         public void OnBackupsUpdated()
         {
             BackupsUpdatedEvent?.Invoke(this, new EventArgs());
+        }
+
+        public void OnBackupLoaded()
+        {
+            BackupLoadedEvent?.Invoke(this, new EventArgs());
         }
     }
 }
