@@ -167,12 +167,10 @@ namespace FarCry5SaveManager
         private void updateUbiIDsList()
         {
                 // If the currently selected SavesGames folder IS a savegames folder
-                if (IsCurrentSaveGamesFolder())
+                if (IsCurrentSaveGamesFolder() && ubiIDsFullPaths != null)
                 {
-                    // If the fullpaths array exists, add the ID part of the path to screen
-                    if (ubiIDsFullPaths != null)
-                        foreach (var dir in ubiIDsFullPaths)
-                            listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
+                    foreach (var dir in ubiIDsFullPaths)
+                        listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
                 }
             else
                 listBoxUbiIDs.Items.Add(Constants.NO_SAVES_FOUND);
