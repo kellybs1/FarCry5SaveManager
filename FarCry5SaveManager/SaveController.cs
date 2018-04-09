@@ -217,7 +217,7 @@ namespace FarCry5SaveManager
         {
             // If the selected ubiID folder contains backups allow the backup button
             int index = listBoxUbiIDs.SelectedIndex;
-            if (index >= 0)
+            if (index >= 0 && ubiIDsFullPaths != null)
             {
                 string currentSelectedBackUp = ubiIDsFullPaths[index];
                 if (IDFolderContainsSaves(currentSelectedBackUp))
@@ -245,12 +245,15 @@ namespace FarCry5SaveManager
             if (listBoxUbiIDs.SelectedItem != null)
             {
                 int index = listBoxUbiIDs.SelectedIndex;
-                string currentIDDir = ubiIDsFullPaths[index];
+                if (ubiIDsFullPaths!= null && ubiIDsFullPaths[index] != null)
+                {
+                    string currentIDDir = ubiIDsFullPaths[index];
 
-                if (IDFolderContainsSaves(currentIDDir))
-                    textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
-                else
-                    textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+                    if (IDFolderContainsSaves(currentIDDir))
+                        textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
+                    else
+                        textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+                }
             }
         }
 
