@@ -5,6 +5,13 @@ A program to backup and manage multiple Far Cry 5 savegames on Windows.
 Written in C# using Visual Studio 2015.
   
   
+ 
+### Requirements
+
+At least .Net Runtime 4.5, and possibly 4.6.1.
+Windows 7 x64 or above.
+
+  
 ### Use
 
 Make your own backup of "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames" or your equivalent uPlay savegames location before running.
