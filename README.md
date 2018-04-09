@@ -5,6 +5,43 @@ A program to backup and manage multiple Far Cry 5 savegames on Windows.
 Written in C# using Visual Studio 2015.
   
   
+### Use
+
+Make your own backup of "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames" or your equivalent uPlay savegames location before running.
+Don't run the application while Far Cry 5 is running; it'll break stuff.
+
+Steps to use:
+1) Launch application
+
+
+2) Select your Ubisoft Unique ID
+
+
+3) Choose to backup the save in that location
+
+
+4) Launch FC5
+
+
+5) Start new game
+
+
+6) Quit FC5
+
+
+7) Back up the new save
+
+
+Now, to restore
+
+1) Click the Ubisoft ID you want to restore to
+
+
+2) Click the save game you want to restore
+
+
+3) Click the Load Save button... **WARNING**: This will overwrite your current save whether it's backed up or not 
+
 
 
 ### Build
