@@ -43,6 +43,12 @@ Now, to restore
 3) Click the Load Save button... **WARNING**: This will overwrite your current save whether it's backed up or not 
 
 
+Then...
+
+
+Close application and run Far Cry 5.
+
+ 
 
 ### Build
 
