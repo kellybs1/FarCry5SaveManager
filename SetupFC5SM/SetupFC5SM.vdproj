@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_413E2B889ED04AF56D1A5537A0D772AA"
+        "MsmKey" = "8:_36CC0046AD9F16C31EF8CE6E30019488"
         "OwnerKey" = "8:_7AA4A2F1E16742938F85B36DE565C748"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -40,7 +40,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_413E2B889ED04AF56D1A5537A0D772AA"
+        "OwnerKey" = "8:_36CC0046AD9F16C31EF8CE6E30019488"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -70,10 +70,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
                     }
                 }
             }
@@ -100,6 +100,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -130,14 +138,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_413E2B889ED04AF56D1A5537A0D772AA"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_36CC0046AD9F16C31EF8CE6E30019488"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_413E2B889ED04AF56D1A5537A0D772AA"
+                    "_36CC0046AD9F16C31EF8CE6E30019488"
                     {
                     "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
