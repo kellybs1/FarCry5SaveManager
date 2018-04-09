@@ -34,13 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_413E2B889ED04AF56D1A5537A0D772AA"
+        "OwnerKey" = "8:_7AA4A2F1E16742938F85B36DE565C748"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7AA4A2F1E16742938F85B36DE565C748"
+        "OwnerKey" = "8:_413E2B889ED04AF56D1A5537A0D772AA"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -70,10 +70,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
                     }
                 }
             }
@@ -93,6 +93,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -790,7 +798,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7AA4A2F1E16742938F85B36DE565C748"
             {
-            "SourcePath" = "8:..\\FarCry5SaveManager\\obj\\Debug\\FarCry5SaveManager.exe"
+            "SourcePath" = "8:..\\FarCry5SaveManager\\obj\\Release\\FarCry5SaveManager.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8603A733569B47AAA4B5C80DB6F26976"
