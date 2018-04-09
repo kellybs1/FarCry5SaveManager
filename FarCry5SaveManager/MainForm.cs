@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FarCry5SaveManager
@@ -53,6 +46,16 @@ namespace FarCry5SaveManager
 
         private void buttonLoadSave_Click(object sender, EventArgs e)
         {
+            buttonLoadSave.Enabled = false;
+            Cursor = Cursors.WaitCursor;
+            Thread.Sleep(50);
+
+            if (saveController.LoadSave())
+                MessageBox.Show("Loaded OK");
+            else
+                MessageBox.Show("Load Failed");
+
+            Cursor = Cursors.Default;
             saveController.LoadSave();
         }
 

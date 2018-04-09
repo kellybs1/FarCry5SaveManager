@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FarCry5SaveManager
@@ -14,13 +10,16 @@ namespace FarCry5SaveManager
 
         // Constructor
         //---------------------------------
+
         public FC5SaveFileSystemManager()
         {
             SaveGamesFolderPath = Constants.DEFAULT_SAVEGAME_LOCATION;
         }
 
+
         // Properties
         //---------------------------------
+
         public bool IsAUbiSavesFolder
         {
             get
@@ -29,7 +28,9 @@ namespace FarCry5SaveManager
             }
         }
 
+
         public string SaveGamesFolderPath { get; set; }
+
 
         public string[] SaveGamesSubDirectories
         { get
@@ -38,25 +39,63 @@ namespace FarCry5SaveManager
             }
         }
 
+
         // Public methods
         //---------------------------------
 
-        public void OverWriteCurrentSaveWithBackup(string savePath)
+        public bool OverWriteCurrentSaveWithBackup(string idSaveDir, string backupSaveDir)
         {
-            // TODO
-            // Delete current save file
-            // Overwrite with back up
+            string gameSavesDir = "";
+            // Delete current save file 
+            try
+            {
+                gameSavesDir = idSaveDir + @"\" + Constants.FC5_GAME_ID;
+                if (!Directory.Exists(gameSavesDir))
+                    Directory.CreateDirectory(gameSavesDir);
+                else
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(gameSavesDir);
+                    FileInfo[] files = dirInfo.GetFiles();
 
-            //Trigger refresh - make sure controller refreshes current save on this event
-            
-            OnBackupLoaded();
+                    if (files != null)
+                        foreach (var file in files)
+                            file.Delete();
+                }
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+
+            // Overwrite with back up
+            try
+            {
+                if (!Directory.Exists(backupSaveDir))
+                    return false;
+                else
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(backupSaveDir);
+                    FileInfo[] files = dirInfo.GetFiles();
+
+                    foreach (var file in files)
+                        file.CopyTo(gameSavesDir + @"\" + file.Name, false);
+
+                    //Trigger refresh - make sure controller refreshes current save on this event
+                    OnBackupLoaded();
+                    return true;    
+                }
+            }
+            catch (IOException)
+            {
+                return false;
+            }  
         }
 
 
         public string GetFileInformation(string filePath)
         {
-            // If bothexist return both info
-            if (DirectoryContainsSaves(filePath))
+            // If both exist return both info
+            if (IDDirectoryContainsSaves(filePath))
             {
                 string savePath1 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_FIRST_SAVE_NAME;
                 string savePath2 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_SECOND_SAVE_NAME;
@@ -69,21 +108,32 @@ namespace FarCry5SaveManager
             }
             else
             {
-                // if neither exists the save isn't safe
+                // if neither exists the save isn't safe to use
                 return Constants.FILES_NOT_FOUND;
             }
             
         }
 
 
-        public bool DirectoryContainsSaves(string filePath)
+        public bool FullDirectoryContainsSaves(string filePath)
         {
             // Check for saves 1 and 2
+            string savePath1 = filePath + @"\" + Constants.FC5_FIRST_SAVE_NAME;
+            string savePath2 = filePath + @"\" + Constants.FC5_SECOND_SAVE_NAME;
+
+            return File.Exists(savePath1) && File.Exists(savePath2);
+        }
+
+
+        public bool IDDirectoryContainsSaves(string filePath)
+        {
+            // Check for saves 1 and 2 but include game folder
             string savePath1 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_FIRST_SAVE_NAME;
             string savePath2 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_SECOND_SAVE_NAME;
 
             return File.Exists(savePath1) && File.Exists(savePath2);
         }
+
 
         public bool DeleteBackup(string folderPath)
         {
@@ -108,17 +158,20 @@ namespace FarCry5SaveManager
             }
         }
 
+
         public bool BackupSave(string idSaveDir, string title)
         {
             string direc = "";
             try
             {
+                // Generate the Appdata folder where we save our backups
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string myPath = appData + @"\" + Constants.APPDATA_FOLDER_NAME;
 
                 if (!Directory.Exists(myPath))
                     Directory.CreateDirectory(myPath);
 
+                //Make a super-wicked-cool-time-based-unique save folder name
                 DateTime date = DateTime.Now;
                 String timeStr = date.ToString("HH:mm:ss.fff");
                 String dateStr = date.ToString("MM/dd/yyyy");
@@ -158,6 +211,7 @@ namespace FarCry5SaveManager
 
         public string[] GetListOfBackedUpSaves()
         {
+            // Use the AppData location to get a list of backed up saves
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string myPath = appData + @"\" + Constants.APPDATA_FOLDER_NAME;
             if (Directory.Exists(myPath))
@@ -165,6 +219,7 @@ namespace FarCry5SaveManager
             else
                 return null;
         }
+
 
         // Events
         // -----------------------------

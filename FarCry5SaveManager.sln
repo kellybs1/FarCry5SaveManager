@@ -30,6 +30,7 @@ Global
 		{8EC153F9-3F6A-472D-B6EA-0CAD013A2D79}.Debug|Any CPU.ActiveCfg = Debug
 		{8EC153F9-3F6A-472D-B6EA-0CAD013A2D79}.DVD-5|Any CPU.ActiveCfg = Debug
 		{8EC153F9-3F6A-472D-B6EA-0CAD013A2D79}.Release|Any CPU.ActiveCfg = Release
+		{8EC153F9-3F6A-472D-B6EA-0CAD013A2D79}.Release|Any CPU.Build.0 = Release
 		{8EC153F9-3F6A-472D-B6EA-0CAD013A2D79}.SingleImage|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

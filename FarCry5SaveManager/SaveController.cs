@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FarCry5SaveManager
@@ -11,6 +8,7 @@ namespace FarCry5SaveManager
     public class SaveController
     {
         private FC5SaveFileSystemManager saveFileSystemManager;
+        // Expected shit from form to handle
         private TextBox textBoxSaveFolderPath;
         private ListBox listBoxUbiIDs;
         private ListBox listBoxBackedUpSaveGames;
@@ -26,6 +24,7 @@ namespace FarCry5SaveManager
 
         // Constructor
         //---------------------------------
+
         public SaveController(TextBox formTextBoxSaveFolderPath, 
                                 ListBox formListBoxUbiIDs, 
                                 ListBox formListBoxBackedUpSaveGames,
@@ -58,23 +57,28 @@ namespace FarCry5SaveManager
             saveFileSystemManager.BackupsUpdatedEvent += updateBackedUpSaveGamesListHandler;
             updateDelButtonState();
             listBoxBackedUpSaveGames.SelectedIndexChanged += updateDeleteButtonStateHandler;
-            updateLoadButtonState();
-            saveFileSystemManager.BackupsUpdatedEvent += updateLoadButtonStateHandler;         
+            updateLoadButtonState();     
             saveFileSystemManager.BackupsUpdatedEvent += updateDeleteButtonStateHandler;
             saveFileSystemManager.BackupsUpdatedEvent += deselectLoadAndUpdateButtonsHandler;
+            saveFileSystemManager.BackupLoadedEvent += updateSaveGameInfoHandler;
             listBoxBackedUpSaveGames.SelectedIndexChanged += updateLoadButtonStateHandler;
-            listBoxUbiIDs.SelectedIndexChanged += updateLoadButtonStateHandler;
             listBoxUbiIDs.SelectedIndexChanged += deselectLoadAndUpdateButtonsHandler;
         }
+
 
         // Public methods
         //---------------------------------
 
         // Load the backup save over the current save
-        public void LoadSave()
+        public bool LoadSave()
         {
-            saveFileSystemManager.OverWriteCurrentSaveWithBackup("penis");
+            int indexID = listBoxUbiIDs.SelectedIndex;
+            string pathToLoadOver = ubiIDsFullPaths[indexID];
+            int indexBackup = listBoxBackedUpSaveGames.SelectedIndex;
+            string pathOfBackup = backedUpSavesFullPaths[indexBackup];
+            return saveFileSystemManager.OverWriteCurrentSaveWithBackup(pathToLoadOver, pathOfBackup);
         }
+
 
         // Sets a new folder path both on screen and for management
         public void SetNewFolderPath(string folderPath)
@@ -91,6 +95,7 @@ namespace FarCry5SaveManager
             string pathToSave = ubiIDsFullPaths[index];
             return saveFileSystemManager.BackupSave(pathToSave, textBoxTitle.Text);
         }
+
 
         // Delete the selected save
         public bool DeleteSaveFile()
@@ -109,47 +114,62 @@ namespace FarCry5SaveManager
 
 
         // Check if the current folder actually has FC5 saves in it
-        public bool CurrentFolderContainsSaves(string folderPath)
+        public bool IDFolderContainsSaves(string folderPath)
         {
-            return saveFileSystemManager.DirectoryContainsSaves(folderPath);
+            return saveFileSystemManager.IDDirectoryContainsSaves(folderPath);
+        }
+
+        public bool FullFolderPathContainsSaves(string folderPath)
+        {
+            return saveFileSystemManager.FullDirectoryContainsSaves(folderPath);
         }
 
 
         // Checks to the best of our ability if a folder is an Ubisoft Game Launcher savegames folder
+        // Could use improvement
         public bool IsCurrentSaveGamesFolder()
         {
             return saveFileSystemManager.IsAUbiSavesFolder;
         }
 
+
         // Private methods
         //---------------------------------
 
-
-
+        // Fetch a list of previously backed up games
         private void updateBackedUpSavesStore()
         {
             backedUpSavesFullPaths = saveFileSystemManager.GetListOfBackedUpSaves();
         }
 
+
         private void updateBackUpList()
         {
+            // If we actually have an array of paths
             if (backedUpSavesFullPaths != null && backedUpSavesFullPaths.Length > 0)
             {
+                // Output them
                 int savesCount = backedUpSavesFullPaths.Length;
                 for (int i = 0; i < savesCount; i++)
                     listBoxBackedUpSaveGames.Items.Add(Path.GetFileName(backedUpSavesFullPaths[i]));
             }
         }
 
+
         private void updateUbiIDsStore()
         {
+            // Go grab all the subfolders' full paths from the ubisoft SaveGames directory
+            // There's usually only one anyway but hey we could make backups in there if we want
             ubiIDsFullPaths = saveFileSystemManager.SaveGamesSubDirectories;
         }
 
+
         private void updateUbiIDsList()
         {
+                // If the currently selected SavesGames folder IS a savegames folder
                 if (IsCurrentSaveGamesFolder())
                 {
+                    // If the fullpaths array exists, add the ID part of the path to screen
                     if (ubiIDsFullPaths != null)
                         foreach (var dir in ubiIDsFullPaths)
                             listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
@@ -158,51 +178,78 @@ namespace FarCry5SaveManager
                 listBoxUbiIDs.Items.Add(Constants.NO_SAVES_FOUND);
         }
 
+
         private void updateDelButtonState()
         {
+            // If there's a selected backup, we can enable button
             if (listBoxBackedUpSaveGames.SelectedIndex >= 0)
                 buttonDelete.Enabled = true;
             else
                 buttonDelete.Enabled = false;
         }
 
+
         private void sanitiseInput()
         {
+            //Stop people typing anything but letters and numbers in the title box
             textBoxTitle.Text = string.Concat(textBoxTitle.Text.Where(char.IsLetterOrDigit));
+            // Move the cursor to the end of the textbox everytime a key is pressed, thank you StackOverflow for being usful for once
             textBoxTitle.SelectionStart = textBoxTitle.Text.Length + 1;
         }
 
+
         private void updateLoadButtonState()
         {
-            int index = listBoxUbiIDs.SelectedIndex;
-            if (index >= 0)
+            // If there's a selected ID and Backup all the button
+            int indexID = listBoxUbiIDs.SelectedIndex;
+            int indexBackup = listBoxBackedUpSaveGames.SelectedIndex;
+            if (indexID >= 0 && indexBackup >= 0)
             {
-                string currentSelectedBackUp = ubiIDsFullPaths[index];
+                string currentSelectedBackUp = backedUpSavesFullPaths[indexBackup];
 
-                if (listBoxBackedUpSaveGames.SelectedIndex >= 0 &&
-                     CurrentFolderContainsSaves(currentSelectedBackUp))
-                    buttonLoadSave.Enabled = true;
+                if (FullFolderPathContainsSaves(currentSelectedBackUp))
+                        buttonLoadSave.Enabled = true;
             }
             else
                 buttonLoadSave.Enabled = false;
         }
 
+
         private void updateBackupButtonState()
         {
+            // If the selected ubiID folder contains backups allow the backup button
             int index = listBoxUbiIDs.SelectedIndex;
             string currentSelectedBackUp = ubiIDsFullPaths[index];
-            buttonBackup.Enabled = CurrentFolderContainsSaves(currentSelectedBackUp) ? true : false;
+            buttonBackup.Enabled = IDFolderContainsSaves(currentSelectedBackUp) ? true : false;
         }
 
 
         private void deselectLoadAndUpdateButtons()
         {
+            // Deselects the load and update buttons - important to remember to run something that can enable them after this
             listBoxBackedUpSaveGames.SelectedIndex = -1;
             buttonLoadSave.Enabled = false;
             buttonDelete.Enabled = false;
         }
 
-        // Events
+
+        private void updateSaveGameInfo()
+        {
+            // If there's a selected ID and it has saves then show the save file info
+            if (listBoxUbiIDs.SelectedItem != null)
+            {
+                int index = listBoxUbiIDs.SelectedIndex;
+                string currentIDDir = ubiIDsFullPaths[index];
+
+                if (IDFolderContainsSaves(currentIDDir))
+                    textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
+                else
+                    textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+            }
+        }
+
+
+        // Event Handlers
         //---------------------------------
 
         private void deselectLoadAndUpdateButtonsHandler(object sender, EventArgs arguments)
@@ -216,10 +263,12 @@ namespace FarCry5SaveManager
             updateLoadButtonState();
         }
 
+
         private void SanitiseInputHandler(object sender, EventArgs arguments)
         {
             sanitiseInput();
         }
+
 
         private void updateBackedUpSaveGamesListHandler(object sender, EventArgs arguments)
         {
@@ -229,10 +278,12 @@ namespace FarCry5SaveManager
             updateBackUpList();         
         }
 
+
         private void updateDeleteButtonStateHandler(object sender, EventArgs arguments)
         {
             updateDelButtonState();
         }
+
 
         private void updateBackupButtonStateHandler(object sender, EventArgs arguments)
         {
@@ -251,16 +302,7 @@ namespace FarCry5SaveManager
         // Output current FC5 savegame info
         private void updateSaveGameInfoHandler(object sender, EventArgs arguments)
         {
-            if (listBoxUbiIDs.SelectedItem != null)
-            {
-                int index = listBoxUbiIDs.SelectedIndex;             
-                string currentIDDir = ubiIDsFullPaths[index];
-
-                if (CurrentFolderContainsSaves(currentIDDir))
-                    textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
-                else
-                    textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
-            }
+            updateSaveGameInfo();
         }
     }
 }
