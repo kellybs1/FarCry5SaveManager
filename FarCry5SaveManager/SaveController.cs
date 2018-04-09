@@ -217,8 +217,16 @@ namespace FarCry5SaveManager
         {
             // If the selected ubiID folder contains backups allow the backup button
             int index = listBoxUbiIDs.SelectedIndex;
-            string currentSelectedBackUp = ubiIDsFullPaths[index];
-            buttonBackup.Enabled = IDFolderContainsSaves(currentSelectedBackUp) ? true : false;
+            if (index >= 0)
+            {
+                string currentSelectedBackUp = ubiIDsFullPaths[index];
+                if (IDFolderContainsSaves(currentSelectedBackUp))
+                    buttonBackup.Enabled = true;
+                else
+                    buttonBackup.Enabled = false;
+            }
+            else
+                buttonBackup.Enabled = false;
         }
 
 
