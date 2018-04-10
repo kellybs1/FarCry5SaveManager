@@ -40,6 +40,11 @@ namespace FarCry5SaveManager
             listBoxUbiIDs = formListBoxUbiIDs;
             listBoxBackedUpSaveGames = formListBoxBackedUpSaveGames;
             textBoxSaveFolderPath = formTextBoxSaveFolderPath;
+            textBoxSaveInfo = formTextBoxSaveInfo;
+            textBoxTitle = formTextBoxTitle;
+            buttonBackup = formButtonBackup;
+            buttonDelete = formButtonDelete;
+            buttonLoadSave = formButtonLoadSave;
             updateUbiIDsStore();
             updateUbiIDsList();
             ubiIDsFullPaths = new string[0];
@@ -48,12 +53,7 @@ namespace FarCry5SaveManager
             textBoxSaveFolderPath.TextChanged += updateSaveGameInfoHandler;
             textBoxSaveFolderPath.Text = Constants.DEFAULT_SAVEGAME_LOCATION;
             listBoxUbiIDs.SelectedIndexChanged += updateSaveGameInfoHandler;
-            buttonBackup = formButtonBackup;
-            buttonDelete = formButtonDelete;
-            buttonLoadSave = formButtonLoadSave;
             listBoxUbiIDs.SelectedIndexChanged += updateBackupButtonStateHandler;
-            textBoxSaveInfo = formTextBoxSaveInfo;
-            textBoxTitle = formTextBoxTitle;
             textBoxTitle.TextChanged += SanitiseInputHandler;
             updateBackedUpSavesStore();
             updateBackUpList();
