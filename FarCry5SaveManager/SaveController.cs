@@ -42,7 +42,10 @@ namespace FarCry5SaveManager
             textBoxSaveFolderPath = formTextBoxSaveFolderPath;
             updateUbiIDsStore();
             updateUbiIDsList();
+            ubiIDsFullPaths = new string[0];
+            backedUpSavesFullPaths = new string[0];
             textBoxSaveFolderPath.TextChanged += updateUbiIDsListHandler;
+            textBoxSaveFolderPath.TextChanged += updateSaveGameInfoHandler;
             textBoxSaveFolderPath.Text = Constants.DEFAULT_SAVEGAME_LOCATION;
             listBoxUbiIDs.SelectedIndexChanged += updateSaveGameInfoHandler;
             buttonBackup = formButtonBackup;
@@ -216,12 +219,18 @@ namespace FarCry5SaveManager
         private void updateBackupButtonState()
         {
             // If the selected ubiID folder contains backups allow the backup button
-            int index = listBoxUbiIDs.SelectedIndex;
-            if (index >= 0 && ubiIDsFullPaths != null)
+            if (IsUbiIDsFullPathsSafeToUse())
             {
-                string currentSelectedBackUp = ubiIDsFullPaths[index];
-                if (IDFolderContainsSaves(currentSelectedBackUp))
-                    buttonBackup.Enabled = true;
+
+                int index = listBoxUbiIDs.SelectedIndex;
+                if (index >= 0 && ubiIDsFullPaths != null)
+                {
+                    string currentSelectedBackUp = ubiIDsFullPaths[index];
+                    if (IDFolderContainsSaves(currentSelectedBackUp))
+                        buttonBackup.Enabled = true;
+                    else
+                        buttonBackup.Enabled = false;
+                }
                 else
                     buttonBackup.Enabled = false;
             }
@@ -241,20 +250,35 @@ namespace FarCry5SaveManager
 
         private void updateSaveGameInfo()
         {
-            // If there's a selected ID and it has saves then show the save file info
-            if (listBoxUbiIDs.SelectedItem != null)
+            if (IsUbiIDsFullPathsSafeToUse())
             {
-                int index = listBoxUbiIDs.SelectedIndex;
-                if (ubiIDsFullPaths!= null && ubiIDsFullPaths[index] != null)
+                if (ubiIDsFullPaths.Length > 0)
                 {
-                    string currentIDDir = ubiIDsFullPaths[index];
+                    int index = listBoxUbiIDs.SelectedIndex;
+                    if (index >= 0 && ubiIDsFullPaths != null && ubiIDsFullPaths[index] != null)
+                    {
+                        string currentIDDir = ubiIDsFullPaths[index];
 
-                    if (IDFolderContainsSaves(currentIDDir))
-                        textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
-                    else
-                        textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+                        if (IDFolderContainsSaves(currentIDDir))
+                            textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
+                        else
+                            textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+                    }
                 }
             }
+            else
+                textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+        }
+
+        private bool IsUbiIDsFullPathsSafeToUse()
+        {
+            if (ubiIDsFullPaths == null)
+                return false;
+
+            if (ubiIDsFullPaths.Length == 0)
+                return false;
+
+            return true;
         }
 
 

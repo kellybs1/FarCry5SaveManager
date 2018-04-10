@@ -35,10 +35,17 @@ namespace FarCry5SaveManager
         public string[] SaveGamesSubDirectories
         { get
             {
-                if (Directory.Exists(SaveGamesFolderPath))
-                    return Directory.GetDirectories(SaveGamesFolderPath);
-                else
+                try
+                {
+                    if (Directory.Exists(SaveGamesFolderPath))
+                        return Directory.GetDirectories(SaveGamesFolderPath);
+                    else
+                        return null;
+                }
+                catch (UnauthorizedAccessException)
+                {
                     return null;
+                }
             }
         }
 

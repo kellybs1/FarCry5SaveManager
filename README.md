@@ -59,7 +59,7 @@ Close application and run Far Cry 5.
 
  
 
-### Build
+### Installer 
 
 <a href="https://github.com/kellybs1/FarCry5SaveManager/raw/master/Build/SetupFC5SM.msi">/Build/SetupFC5SM.msi</a>
 
