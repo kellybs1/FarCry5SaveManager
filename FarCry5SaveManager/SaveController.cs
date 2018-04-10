@@ -59,8 +59,8 @@ namespace FarCry5SaveManager
             updateBackUpList();
             saveFileSystemManager.BackupsUpdatedEvent += updateBackedUpSaveGamesListHandler;
             updateDelButtonState();
+            updateLoadButtonState();
             listBoxBackedUpSaveGames.SelectedIndexChanged += updateDeleteButtonStateHandler;
-            updateLoadButtonState();     
             saveFileSystemManager.BackupsUpdatedEvent += updateDeleteButtonStateHandler;
             saveFileSystemManager.BackupsUpdatedEvent += deselectLoadAndUpdateButtonsHandler;
             saveFileSystemManager.BackupLoadedEvent += updateSaveGameInfoHandler;
@@ -203,6 +203,7 @@ namespace FarCry5SaveManager
 
         private void updateLoadButtonState()
         {
+            buttonLoadSave.Enabled = false;
             // If there's a selected ID and Backup
             if (IsUbiIDsFullPathsSafeToUse())
             {
@@ -216,8 +217,6 @@ namespace FarCry5SaveManager
                         buttonLoadSave.Enabled = true;
                 }
             }
-            else
-                buttonLoadSave.Enabled = false;
         }
 
 

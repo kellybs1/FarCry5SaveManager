@@ -56,7 +56,7 @@ namespace FarCry5SaveManager
                 MessageBox.Show("Load Failed");
 
             Cursor = Cursors.Default;
-            saveController.LoadSave();
+
         }
 
         private void buttonDeleteSave_Click(object sender, EventArgs e)
