@@ -25,8 +25,8 @@ namespace FarCry5SaveManager
         // Constructor
         //---------------------------------
 
-        public SaveController(TextBox formTextBoxSaveFolderPath, 
-                                ListBox formListBoxUbiIDs, 
+        public SaveController(TextBox formTextBoxSaveFolderPath,
+                                ListBox formListBoxUbiIDs,
                                 ListBox formListBoxBackedUpSaveGames,
                                 TextBox formTextBoxSaveInfo,
                                 TextBox formTextBoxTitle,
@@ -172,12 +172,12 @@ namespace FarCry5SaveManager
 
         private void updateUbiIDsList()
         {
-                // If the currently selected SavesGames folder IS a savegames folder
-                if (IsCurrentSaveGamesFolder() && ubiIDsFullPaths != null)
-                {
-                    foreach (var dir in ubiIDsFullPaths)
-                        listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
-                }
+            // If the currently selected SavesGames folder IS a savegames folder
+            if (IsCurrentSaveGamesFolder() && ubiIDsFullPaths != null)
+            {
+                foreach (var dir in ubiIDsFullPaths)
+                    listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
+            }
             else
                 listBoxUbiIDs.Items.Add(Constants.NO_SAVES_FOUND);
         }
@@ -234,7 +234,7 @@ namespace FarCry5SaveManager
                     if (idFolderContainsSaves(currentSelectedBackUp))
                         buttonBackup.Enabled = true;
                 }
-            }            
+            }
         }
 
 
@@ -264,7 +264,7 @@ namespace FarCry5SaveManager
                     }
                 }
             }
-               
+
         }
 
 
@@ -306,7 +306,7 @@ namespace FarCry5SaveManager
             buttonDelete.Enabled = false;
             listBoxBackedUpSaveGames.Items.Clear();
             updateBackedUpSavesStore();
-            updateBackUpList();         
+            updateBackUpList();
         }
 
 

@@ -10,11 +10,11 @@ namespace FarCry5SaveManager
         public MainForm()
         {
             InitializeComponent();
-            saveController = new SaveController(textBoxFolderPath, listBoxUbiIDs, listBoxBackedUpSaves, 
-                                                textBoxSaveInfo, textBoxBackupTitle, buttonBackup, 
+            saveController = new SaveController(textBoxFolderPath, listBoxUbiIDs, listBoxBackedUpSaves,
+                                                textBoxSaveInfo, textBoxBackupTitle, buttonBackup,
                                                 buttonDeleteSave, buttonLoadSave);
         }
-      
+
 
         private void buttonBrowse_Click(object sender, EventArgs e)
         {

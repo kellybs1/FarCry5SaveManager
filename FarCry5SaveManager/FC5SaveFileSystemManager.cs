@@ -33,7 +33,8 @@ namespace FarCry5SaveManager
 
 
         public string[] SaveGamesSubDirectories
-        { get
+        {
+            get
             {
                 try
                 {
@@ -107,13 +108,13 @@ namespace FarCry5SaveManager
 
                     //Trigger refresh - make sure controller refreshes current save on this event
                     OnBackupLoaded();
-                    return true;    
+                    return true;
                 }
             }
             catch (IOException)
             {
                 return false;
-            }  
+            }
         }
 
 
@@ -136,7 +137,7 @@ namespace FarCry5SaveManager
                 // if neither exists the save isn't safe to use
                 return Constants.FILES_NOT_FOUND;
             }
-            
+
         }
 
 
