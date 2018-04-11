@@ -50,6 +50,21 @@ namespace FarCry5SaveManager
         }
 
 
+        public string[] GetListOfBackedUpSaves
+        {
+            get
+            {
+                // Use the AppData location to get a list of backed up saves
+                string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string myPath = appData + @"\" + Constants.APPDATA_FOLDER_NAME;
+                if (Directory.Exists(myPath))
+                    return Directory.GetDirectories(myPath);
+                else
+                    return null;
+            }
+        }
+
+
         // Public methods
         //---------------------------------
 
@@ -216,18 +231,6 @@ namespace FarCry5SaveManager
                 return false;
             }
 
-        }
-
-
-        public string[] GetListOfBackedUpSaves()
-        {
-            // Use the AppData location to get a list of backed up saves
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string myPath = appData + @"\" + Constants.APPDATA_FOLDER_NAME;
-            if (Directory.Exists(myPath))
-                return  Directory.GetDirectories(myPath);
-            else
-                return null;
         }
 
 

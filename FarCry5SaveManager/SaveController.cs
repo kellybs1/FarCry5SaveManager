@@ -52,9 +52,10 @@ namespace FarCry5SaveManager
             textBoxSaveFolderPath.TextChanged += updateUbiIDsListHandler;
             textBoxSaveFolderPath.TextChanged += updateSaveGameInfoHandler;
             textBoxSaveFolderPath.Text = Constants.DEFAULT_SAVEGAME_LOCATION;
+            textBoxSaveFolderPath.TextChanged += updateBackupButtonStateHandler;
             listBoxUbiIDs.SelectedIndexChanged += updateSaveGameInfoHandler;
             listBoxUbiIDs.SelectedIndexChanged += updateBackupButtonStateHandler;
-            textBoxTitle.TextChanged += SanitiseInputHandler;
+            textBoxTitle.TextChanged += sanitiseInputHandler;
             updateBackedUpSavesStore();
             updateBackUpList();
             saveFileSystemManager.BackupsUpdatedEvent += updateBackedUpSaveGamesListHandler;
@@ -111,20 +112,17 @@ namespace FarCry5SaveManager
         }
 
 
-        // Fetches current save file meta data
-        public string GetSaveFileInfo(string filePath)
-        {
-            return saveFileSystemManager.GetFileInformation(filePath);
-        }
-
+        // Private methods
+        //---------------------------------
 
         // Check if the current folder actually has FC5 saves in it
-        public bool IDFolderContainsSaves(string folderPath)
+        private bool idFolderContainsSaves(string folderPath)
         {
             return saveFileSystemManager.IDDirectoryContainsSaves(folderPath);
         }
 
-        public bool FullFolderPathContainsSaves(string folderPath)
+
+        private bool fullFolderPathContainsSaves(string folderPath)
         {
             return saveFileSystemManager.FullDirectoryContainsSaves(folderPath);
         }
@@ -137,14 +135,17 @@ namespace FarCry5SaveManager
             return saveFileSystemManager.IsAUbiSavesFolder;
         }
 
+        // Fetches current save file meta data
+        private string getSaveFileInfo(string filePath)
+        {
+            return saveFileSystemManager.GetFileInformation(filePath);
+        }
 
-        // Private methods
-        //---------------------------------
 
         // Fetch a list of previously backed up games
         private void updateBackedUpSavesStore()
         {
-            backedUpSavesFullPaths = saveFileSystemManager.GetListOfBackedUpSaves();
+            backedUpSavesFullPaths = saveFileSystemManager.GetListOfBackedUpSaves;
         }
 
 
@@ -205,7 +206,7 @@ namespace FarCry5SaveManager
         {
             buttonLoadSave.Enabled = false;
             // If there's a selected ID and Backup
-            if (IsUbiIDsFullPathsSafeToUse())
+            if (isUbiIDsFullPathsSafeToUse())
             {
                 int indexID = listBoxUbiIDs.SelectedIndex;
                 int indexBackup = listBoxBackedUpSaveGames.SelectedIndex;
@@ -213,7 +214,7 @@ namespace FarCry5SaveManager
                 {
                     string currentSelectedBackUp = backedUpSavesFullPaths[indexBackup];
 
-                    if (FullFolderPathContainsSaves(currentSelectedBackUp) && IDFolderContainsSaves(ubiIDsFullPaths[indexID]))
+                    if (fullFolderPathContainsSaves(currentSelectedBackUp) && idFolderContainsSaves(ubiIDsFullPaths[indexID]))
                         buttonLoadSave.Enabled = true;
                 }
             }
@@ -224,13 +225,13 @@ namespace FarCry5SaveManager
         {
             buttonBackup.Enabled = false;
             // If the selected ubiID folder contains backups allow the backup button
-            if (IsUbiIDsFullPathsSafeToUse())
+            if (isUbiIDsFullPathsSafeToUse())
             {
                 int index = listBoxUbiIDs.SelectedIndex;
                 if (index >= 0 && ubiIDsFullPaths != null)
                 {
                     string currentSelectedBackUp = ubiIDsFullPaths[index];
-                    if (IDFolderContainsSaves(currentSelectedBackUp))
+                    if (idFolderContainsSaves(currentSelectedBackUp))
                         buttonBackup.Enabled = true;
                 }
             }            
@@ -249,7 +250,7 @@ namespace FarCry5SaveManager
         private void updateSaveGameInfo()
         {
             textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
-            if (IsUbiIDsFullPathsSafeToUse())
+            if (isUbiIDsFullPathsSafeToUse())
             {
                 if (ubiIDsFullPaths.Length > 0)
                 {
@@ -258,15 +259,19 @@ namespace FarCry5SaveManager
                     {
                         string currentIDDir = ubiIDsFullPaths[index];
 
-                        if (IDFolderContainsSaves(currentIDDir))
-                            textBoxSaveInfo.Text = GetSaveFileInfo(currentIDDir);
+                        if (idFolderContainsSaves(currentIDDir))
+                            textBoxSaveInfo.Text = getSaveFileInfo(currentIDDir);
                     }
                 }
             }
                
         }
 
-        private bool IsUbiIDsFullPathsSafeToUse()
+
+        // Event Handlers
+        //---------------------------------
+
+        private bool isUbiIDsFullPathsSafeToUse()
         {
             if (ubiIDsFullPaths == null)
                 return false;
@@ -277,9 +282,6 @@ namespace FarCry5SaveManager
             return true;
         }
 
-
-        // Event Handlers
-        //---------------------------------
 
         private void deselectLoadAndUpdateButtonsHandler(object sender, EventArgs arguments)
         {
@@ -293,7 +295,7 @@ namespace FarCry5SaveManager
         }
 
 
-        private void SanitiseInputHandler(object sender, EventArgs arguments)
+        private void sanitiseInputHandler(object sender, EventArgs arguments)
         {
             sanitiseInput();
         }
