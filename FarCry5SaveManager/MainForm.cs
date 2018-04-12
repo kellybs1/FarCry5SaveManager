@@ -46,31 +46,43 @@ namespace FarCry5SaveManager
 
         private void buttonLoadSave_Click(object sender, EventArgs e)
         {
-            buttonLoadSave.Enabled = false;
-            Cursor = Cursors.WaitCursor;
-            Thread.Sleep(50);
+            DialogResult loadResult = MessageBox.Show("Load selected save?", "Load save",
+                                                    MessageBoxButtons.YesNo);
 
-            if (saveController.LoadSave())
-                MessageBox.Show("Loaded OK");
-            else
-                MessageBox.Show("Load Failed");
+            if (loadResult == DialogResult.Yes)
+            {
+                buttonLoadSave.Enabled = false;
+                Cursor = Cursors.WaitCursor;
+                Thread.Sleep(50);
 
-            Cursor = Cursors.Default;
+                if (saveController.LoadSave())
+                    MessageBox.Show("Loaded OK", "Load save");
+                else
+                    MessageBox.Show("Load Failed", "Load save" );
+
+                Cursor = Cursors.Default;
+            }
 
         }
 
         private void buttonDeleteSave_Click(object sender, EventArgs e)
         {
-            buttonDeleteSave.Enabled = false;
-            Cursor = Cursors.WaitCursor;
-            Thread.Sleep(50);
+            DialogResult delResult = MessageBox.Show("Delete selected save?", "Delete save",
+                                                    MessageBoxButtons.YesNo);
 
-            if (saveController.DeleteSaveFile())
-                MessageBox.Show("Deleted OK");
-            else
-                MessageBox.Show("Delete Failed");
+            if (delResult == DialogResult.Yes)
+            {
+                buttonDeleteSave.Enabled = false;
+                Cursor = Cursors.WaitCursor;
+                Thread.Sleep(50);
 
-            Cursor = Cursors.Default;
+                if (saveController.DeleteSaveFile())
+                    MessageBox.Show("Deleted OK", "Delete save");
+                else
+                    MessageBox.Show("Delete Failed", "Delete save");
+
+                Cursor = Cursors.Default;
+            }
         }
     }
 }
