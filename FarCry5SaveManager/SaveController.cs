@@ -5,6 +5,11 @@ using System.Windows.Forms;
 
 namespace FarCry5SaveManager
 {
+    /*
+    Class: SaveController
+    Purpose: Overarching management class for interactions between the form and the functional classes
+    Controlling class: MainForm
+    */
     public class SaveController
     {
         private FC5SaveFileSystemManager saveFileSystemManager;
@@ -51,7 +56,7 @@ namespace FarCry5SaveManager
             backedUpSavesFullPaths = new string[0];
             textBoxSaveFolderPath.TextChanged += updateUbiIDsListHandler;
             textBoxSaveFolderPath.TextChanged += updateSaveGameInfoHandler;
-            textBoxSaveFolderPath.Text = Constants.DEFAULT_SAVEGAME_LOCATION;
+            textBoxSaveFolderPath.Text = Constants.SystemFolderPaths.DEFAULT_SAVEGAME_LOCATION;
             textBoxSaveFolderPath.TextChanged += updateBackupButtonStateHandler;
             listBoxUbiIDs.SelectedIndexChanged += updateSaveGameInfoHandler;
             listBoxUbiIDs.SelectedIndexChanged += updateBackupButtonStateHandler;
@@ -179,7 +184,7 @@ namespace FarCry5SaveManager
                     listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
             }
             else
-                listBoxUbiIDs.Items.Add(Constants.NO_SAVES_FOUND);
+                listBoxUbiIDs.Items.Add(Constants.Errors.NO_SAVES_FOUND);
         }
 
 
@@ -249,7 +254,7 @@ namespace FarCry5SaveManager
 
         private void updateSaveGameInfo()
         {
-            textBoxSaveInfo.Text = Constants.FILES_NOT_FOUND;
+            textBoxSaveInfo.Text = Constants.Errors.FILES_NOT_FOUND;
             if (isUbiIDsFullPathsSafeToUse())
             {
                 if (ubiIDsFullPaths.Length > 0)

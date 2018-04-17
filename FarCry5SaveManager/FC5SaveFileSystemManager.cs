@@ -1,6 +1,12 @@
 ﻿using System;
 using System.IO;
 
+/*
+Class: FC5SaveFileSystemManager
+Purpose: Manages Creating/saving/copying savegames folders and their contents
+Controlling class: SaveController
+*/
+
 namespace FarCry5SaveManager
 {
     public class FC5SaveFileSystemManager
@@ -13,7 +19,7 @@ namespace FarCry5SaveManager
 
         public FC5SaveFileSystemManager()
         {
-            SaveGamesFolderPath = Constants.DEFAULT_SAVEGAME_LOCATION;
+            SaveGamesFolderPath = Constants.SystemFolderPaths.DEFAULT_SAVEGAME_LOCATION;
         }
 
 
@@ -57,7 +63,7 @@ namespace FarCry5SaveManager
             {
                 // Use the AppData location to get a list of backed up saves
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string myPath = appData + @"\" + Constants.APPDATA_FOLDER_NAME;
+                string myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_NAME;
                 if (Directory.Exists(myPath))
                     return Directory.GetDirectories(myPath);
                 else
@@ -75,7 +81,7 @@ namespace FarCry5SaveManager
             // Delete current save file 
             try
             {
-                gameSavesDir = idSaveDir + @"\" + Constants.FC5_GAME_ID;
+                gameSavesDir = idSaveDir + @"\" + Constants.GameIDs.FC5_GAME_ID;
                 if (!Directory.Exists(gameSavesDir))
                     Directory.CreateDirectory(gameSavesDir);
                 else
@@ -123,19 +129,19 @@ namespace FarCry5SaveManager
             // If both exist return both info
             if (IDDirectoryContainsSaves(filePath))
             {
-                string savePath1 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_FIRST_SAVE_NAME;
-                string savePath2 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_SECOND_SAVE_NAME;
+                string savePath1 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
+                string savePath2 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
                 FileInfo saveInfo1 = new FileInfo(savePath1);
                 FileInfo saveInfo2 = new FileInfo(savePath2);
 
-                string info1 = Constants.FC5_FIRST_SAVE_NAME + " : " + saveInfo1.LastWriteTime;
-                string info2 = Constants.FC5_SECOND_SAVE_NAME + " : " + saveInfo2.LastWriteTime;
+                string info1 = Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME + " : " + saveInfo1.LastWriteTime;
+                string info2 = Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME + " : " + saveInfo2.LastWriteTime;
                 return info1 + " , " + info2;
             }
             else
             {
                 // if neither exists the save isn't safe to use
-                return Constants.FILES_NOT_FOUND;
+                return Constants.Errors.FILES_NOT_FOUND;
             }
 
         }
@@ -144,8 +150,8 @@ namespace FarCry5SaveManager
         public bool FullDirectoryContainsSaves(string filePath)
         {
             // Check for saves 1 and 2
-            string savePath1 = filePath + @"\" + Constants.FC5_FIRST_SAVE_NAME;
-            string savePath2 = filePath + @"\" + Constants.FC5_SECOND_SAVE_NAME;
+            string savePath1 = filePath + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
+            string savePath2 = filePath + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
 
             return File.Exists(savePath1) && File.Exists(savePath2);
         }
@@ -154,8 +160,8 @@ namespace FarCry5SaveManager
         public bool IDDirectoryContainsSaves(string filePath)
         {
             // Check for saves 1 and 2 but include game folder
-            string savePath1 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_FIRST_SAVE_NAME;
-            string savePath2 = filePath + @"\" + Constants.FC5_GAME_ID + @"\" + Constants.FC5_SECOND_SAVE_NAME;
+            string savePath1 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
+            string savePath2 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
 
             return File.Exists(savePath1) && File.Exists(savePath2);
         }
@@ -192,7 +198,7 @@ namespace FarCry5SaveManager
             {
                 // Generate the Appdata folder where we save our backups
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string myPath = appData + @"\" + Constants.APPDATA_FOLDER_NAME;
+                string myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_NAME;
 
                 if (!Directory.Exists(myPath))
                     Directory.CreateDirectory(myPath);
@@ -204,7 +210,7 @@ namespace FarCry5SaveManager
                 //remove characters filenames don't like
                 timeStr = timeStr.Replace(':', '_');
                 dateStr = dateStr.Replace('/', '_');
-                String folderName = Constants.FC5_GAME_ID + "_" + dateStr + "_" + timeStr;
+                String folderName = Constants.GameIDs.FC5_GAME_ID + "_" + dateStr + "_" + timeStr;
                 folderName = folderName.Replace(" ", "");
 
                 // Create folder and save path for deletion upon failure
@@ -213,7 +219,7 @@ namespace FarCry5SaveManager
                 direc = backupLocation;
 
                 // Copy the files to backup location
-                string sourceDir = idSaveDir + @"\" + Constants.FC5_GAME_ID;
+                string sourceDir = idSaveDir + @"\" + Constants.GameIDs.FC5_GAME_ID;
                 DirectoryInfo dirInfo = new DirectoryInfo(sourceDir);
                 FileInfo[] files = dirInfo.GetFiles();
 
