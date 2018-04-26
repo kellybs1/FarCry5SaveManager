@@ -34,6 +34,7 @@ namespace FarCry5SaveManager
             }
         }
 
+
         private void buttonBackup_Click(object sender, EventArgs e)
         {
             buttonBackup.Enabled = false;
@@ -49,6 +50,7 @@ namespace FarCry5SaveManager
             buttonBackup.Enabled = true;
         }
 
+
         private void buttonLoadSave_Click(object sender, EventArgs e)
         {
             DialogResult loadResult = MessageBox.Show("Load selected save?", "Load save",
@@ -58,7 +60,6 @@ namespace FarCry5SaveManager
             {
                 buttonLoadSave.Enabled = false;
                 Cursor = Cursors.WaitCursor;
-                Thread.Sleep(50);
 
                 if (saveController.LoadSave())
                     MessageBox.Show("Loaded OK", "Load save");
@@ -70,6 +71,7 @@ namespace FarCry5SaveManager
 
         }
 
+
         private void buttonDeleteSave_Click(object sender, EventArgs e)
         {
             DialogResult delResult = MessageBox.Show("Delete selected save?", "Delete save",
@@ -79,7 +81,6 @@ namespace FarCry5SaveManager
             {
                 buttonDeleteSave.Enabled = false;
                 Cursor = Cursors.WaitCursor;
-                Thread.Sleep(50);
 
                 if (saveController.DeleteSaveFile())
                     MessageBox.Show("Deleted OK", "Delete save");

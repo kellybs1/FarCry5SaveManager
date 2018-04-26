@@ -129,6 +129,7 @@ namespace FarCry5SaveManager
             saveFileSystemManager.UpdateStorefrontSubfolder(storefront);
         }
 
+
         // Private methods
         //---------------------------------
 
@@ -284,9 +285,6 @@ namespace FarCry5SaveManager
         }
 
 
-        // Event Handlers
-        //---------------------------------
-
         private bool isUbiIDsFullPathsSafeToUse()
         {
             if (ubiIDsFullPaths == null)
@@ -298,6 +296,9 @@ namespace FarCry5SaveManager
             return true;
         }
 
+
+        // Event Handlers
+        //---------------------------------
 
         private void deselectLoadAndUpdateButtonsHandler(object sender, EventArgs arguments)
         {
