@@ -44,13 +44,17 @@
             this.buttonDeleteSave = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxBackupTitle = new System.Windows.Forms.TextBox();
+            this.groupBoxStorefront = new System.Windows.Forms.GroupBox();
+            this.radioButtonUPlay = new System.Windows.Forms.RadioButton();
+            this.radioButtonSteam = new System.Windows.Forms.RadioButton();
+            this.groupBoxStorefront.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxBackedUpSaves
             // 
             this.listBoxBackedUpSaves.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxBackedUpSaves.FormattingEnabled = true;
-            this.listBoxBackedUpSaves.Location = new System.Drawing.Point(14, 330);
+            this.listBoxBackedUpSaves.Location = new System.Drawing.Point(12, 390);
             this.listBoxBackedUpSaves.Name = "listBoxBackedUpSaves";
             this.listBoxBackedUpSaves.Size = new System.Drawing.Size(379, 108);
             this.listBoxBackedUpSaves.TabIndex = 0;
@@ -59,7 +63,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(199, 13);
             this.label1.TabIndex = 2;
@@ -68,7 +72,7 @@
             // textBoxFolderPath
             // 
             this.textBoxFolderPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFolderPath.Location = new System.Drawing.Point(15, 25);
+            this.textBoxFolderPath.Location = new System.Drawing.Point(12, 94);
             this.textBoxFolderPath.Name = "textBoxFolderPath";
             this.textBoxFolderPath.ReadOnly = true;
             this.textBoxFolderPath.Size = new System.Drawing.Size(378, 20);
@@ -78,7 +82,7 @@
             // 
             this.buttonBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBrowse.Location = new System.Drawing.Point(411, 22);
+            this.buttonBrowse.Location = new System.Drawing.Point(408, 91);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(121, 25);
             this.buttonBrowse.TabIndex = 4;
@@ -90,7 +94,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 71);
+            this.label2.Location = new System.Drawing.Point(9, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 13);
             this.label2.TabIndex = 5;
@@ -100,7 +104,7 @@
             // 
             this.listBoxUbiIDs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxUbiIDs.FormattingEnabled = true;
-            this.listBoxUbiIDs.Location = new System.Drawing.Point(15, 87);
+            this.listBoxUbiIDs.Location = new System.Drawing.Point(12, 143);
             this.listBoxUbiIDs.Name = "listBoxUbiIDs";
             this.listBoxUbiIDs.Size = new System.Drawing.Size(517, 82);
             this.listBoxUbiIDs.TabIndex = 1;
@@ -109,7 +113,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 203);
+            this.label3.Location = new System.Drawing.Point(10, 255);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 13);
             this.label3.TabIndex = 6;
@@ -118,7 +122,7 @@
             // textBoxSaveInfo
             // 
             this.textBoxSaveInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSaveInfo.Location = new System.Drawing.Point(14, 220);
+            this.textBoxSaveInfo.Location = new System.Drawing.Point(12, 272);
             this.textBoxSaveInfo.Name = "textBoxSaveInfo";
             this.textBoxSaveInfo.ReadOnly = true;
             this.textBoxSaveInfo.Size = new System.Drawing.Size(391, 20);
@@ -129,7 +133,7 @@
             this.buttonBackup.Enabled = false;
             this.buttonBackup.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonBackup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBackup.Location = new System.Drawing.Point(411, 241);
+            this.buttonBackup.Location = new System.Drawing.Point(409, 293);
             this.buttonBackup.Name = "buttonBackup";
             this.buttonBackup.Size = new System.Drawing.Size(121, 25);
             this.buttonBackup.TabIndex = 8;
@@ -141,7 +145,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(14, 311);
+            this.label4.Location = new System.Drawing.Point(12, 371);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 13);
             this.label4.TabIndex = 9;
@@ -152,7 +156,7 @@
             this.buttonLoadSave.BackColor = System.Drawing.Color.PaleGreen;
             this.buttonLoadSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonLoadSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLoadSave.Location = new System.Drawing.Point(411, 408);
+            this.buttonLoadSave.Location = new System.Drawing.Point(409, 468);
             this.buttonLoadSave.Name = "buttonLoadSave";
             this.buttonLoadSave.Size = new System.Drawing.Size(121, 30);
             this.buttonLoadSave.TabIndex = 10;
@@ -164,7 +168,7 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(16, 298);
+            this.panel1.Location = new System.Drawing.Point(14, 358);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(516, 1);
             this.panel1.TabIndex = 12;
@@ -175,7 +179,7 @@
             this.buttonDeleteSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonDeleteSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDeleteSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonDeleteSave.Location = new System.Drawing.Point(411, 330);
+            this.buttonDeleteSave.Location = new System.Drawing.Point(409, 390);
             this.buttonDeleteSave.Name = "buttonDeleteSave";
             this.buttonDeleteSave.Size = new System.Drawing.Size(121, 30);
             this.buttonDeleteSave.TabIndex = 13;
@@ -187,7 +191,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(14, 247);
+            this.label5.Location = new System.Drawing.Point(12, 299);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 14;
@@ -196,18 +200,53 @@
             // textBoxBackupTitle
             // 
             this.textBoxBackupTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxBackupTitle.Location = new System.Drawing.Point(114, 244);
+            this.textBoxBackupTitle.Location = new System.Drawing.Point(112, 296);
             this.textBoxBackupTitle.MaxLength = 16;
             this.textBoxBackupTitle.Name = "textBoxBackupTitle";
             this.textBoxBackupTitle.Size = new System.Drawing.Size(291, 20);
             this.textBoxBackupTitle.TabIndex = 15;
+            // 
+            // groupBoxStorefront
+            // 
+            this.groupBoxStorefront.Controls.Add(this.radioButtonUPlay);
+            this.groupBoxStorefront.Controls.Add(this.radioButtonSteam);
+            this.groupBoxStorefront.Location = new System.Drawing.Point(15, 13);
+            this.groupBoxStorefront.Name = "groupBoxStorefront";
+            this.groupBoxStorefront.Size = new System.Drawing.Size(238, 49);
+            this.groupBoxStorefront.TabIndex = 16;
+            this.groupBoxStorefront.TabStop = false;
+            this.groupBoxStorefront.Text = "Storefront";
+            // 
+            // radioButtonUPlay
+            // 
+            this.radioButtonUPlay.AutoSize = true;
+            this.radioButtonUPlay.Checked = true;
+            this.radioButtonUPlay.Location = new System.Drawing.Point(140, 20);
+            this.radioButtonUPlay.Name = "radioButtonUPlay";
+            this.radioButtonUPlay.Size = new System.Drawing.Size(51, 17);
+            this.radioButtonUPlay.TabIndex = 1;
+            this.radioButtonUPlay.TabStop = true;
+            this.radioButtonUPlay.Text = "uPlay";
+            this.radioButtonUPlay.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSteam
+            // 
+            this.radioButtonSteam.AutoSize = true;
+            this.radioButtonSteam.Location = new System.Drawing.Point(34, 20);
+            this.radioButtonSteam.Name = "radioButtonSteam";
+            this.radioButtonSteam.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonSteam.TabIndex = 0;
+            this.radioButtonSteam.Text = "Steam";
+            this.radioButtonSteam.UseVisualStyleBackColor = true;
+            this.radioButtonSteam.CheckedChanged += new System.EventHandler(this.radioButtonSteam_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(548, 460);
+            this.ClientSize = new System.Drawing.Size(548, 510);
+            this.Controls.Add(this.groupBoxStorefront);
             this.Controls.Add(this.textBoxBackupTitle);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonDeleteSave);
@@ -230,6 +269,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Far Cry 5 Save Manager";
+            this.groupBoxStorefront.ResumeLayout(false);
+            this.groupBoxStorefront.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,6 +293,9 @@
         private System.Windows.Forms.Button buttonDeleteSave;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxBackupTitle;
+        private System.Windows.Forms.GroupBox groupBoxStorefront;
+        private System.Windows.Forms.RadioButton radioButtonUPlay;
+        private System.Windows.Forms.RadioButton radioButtonSteam;
     }
 }
 

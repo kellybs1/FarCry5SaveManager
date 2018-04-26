@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace FarCry5SaveManager
         private Button buttonBackup;
         private Button buttonDelete;
         private Button buttonLoadSave;
+        private RadioButton checkChangedTriggerButton;
         // Arrays for storing full paths to locations
         private string[] ubiIDsFullPaths;
         private string[] backedUpSavesFullPaths;
@@ -37,7 +39,8 @@ namespace FarCry5SaveManager
                                 TextBox formTextBoxTitle,
                                 Button formButtonBackup,
                                 Button formButtonDelete,
-                                Button formButtonLoadSave)
+                                Button formButtonLoadSave,
+                                RadioButton formCheckChangedTriggerButton)
         {
 
             // Don't fuck up the order of initialisation... it's... fragile
@@ -50,6 +53,8 @@ namespace FarCry5SaveManager
             buttonBackup = formButtonBackup;
             buttonDelete = formButtonDelete;
             buttonLoadSave = formButtonLoadSave;
+            checkChangedTriggerButton = formCheckChangedTriggerButton;
+            UpdateStorefront(Constants.Storefront.UPlay); // This is set uPlay as form loads with uPlay selected 
             updateUbiIDsStore();
             updateUbiIDsList();
             ubiIDsFullPaths = new string[0];
@@ -60,6 +65,8 @@ namespace FarCry5SaveManager
             textBoxSaveFolderPath.TextChanged += updateBackupButtonStateHandler;
             listBoxUbiIDs.SelectedIndexChanged += updateSaveGameInfoHandler;
             listBoxUbiIDs.SelectedIndexChanged += updateBackupButtonStateHandler;
+            checkChangedTriggerButton.CheckedChanged += updateUbiIDsListHandler;
+            checkChangedTriggerButton.CheckedChanged += updateSaveGameInfoHandler;
             textBoxTitle.TextChanged += sanitiseInputHandler;
             updateBackedUpSavesStore();
             updateBackUpList();
@@ -117,6 +124,11 @@ namespace FarCry5SaveManager
         }
 
 
+        public void UpdateStorefront(Constants.Storefront storefront)
+        {
+            saveFileSystemManager.UpdateStorefrontSubfolder(storefront);
+        }
+
         // Private methods
         //---------------------------------
 
@@ -135,7 +147,7 @@ namespace FarCry5SaveManager
 
         // Checks to the best of our ability if a folder is an Ubisoft Game Launcher savegames folder
         // Could use improvement
-        public bool IsCurrentSaveGamesFolder()
+        private bool isCurrentSaveGamesFolder()
         {
             return saveFileSystemManager.IsAUbiSavesFolder;
         }
@@ -178,7 +190,7 @@ namespace FarCry5SaveManager
         private void updateUbiIDsList()
         {
             // If the currently selected SavesGames folder IS a savegames folder
-            if (IsCurrentSaveGamesFolder() && ubiIDsFullPaths != null)
+            if (isCurrentSaveGamesFolder() && ubiIDsFullPaths != null)
             {
                 foreach (var dir in ubiIDsFullPaths)
                     listBoxUbiIDs.Items.Add(Path.GetFileName(dir));
@@ -269,7 +281,6 @@ namespace FarCry5SaveManager
                     }
                 }
             }
-
         }
 
 

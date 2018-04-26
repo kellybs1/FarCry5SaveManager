@@ -9,8 +9,11 @@ Controlling class: SaveController
 
 namespace FarCry5SaveManager
 {
+    
     public class FC5SaveFileSystemManager
     {
+        private string storefrontSubFolder;
+
         public event EventHandler BackupsUpdatedEvent;
         public event EventHandler BackupLoadedEvent;
 
@@ -75,13 +78,21 @@ namespace FarCry5SaveManager
         // Public methods
         //---------------------------------
 
+        public void UpdateStorefrontSubfolder(Constants.Storefront storefront)
+        {
+            if (storefront == Constants.Storefront.Steam)
+                storefrontSubFolder = Constants.GameIDs.FC5_STEAM_GAME_ID;
+            else
+                storefrontSubFolder = Constants.GameIDs.FC5_UPLAY_GAME_ID;
+        }
+
         public bool OverWriteCurrentSaveWithBackup(string idSaveDir, string backupSaveDir)
         {
             string gameSavesDir = "";
             // Delete current save file 
             try
             {
-                gameSavesDir = idSaveDir + @"\" + Constants.GameIDs.FC5_GAME_ID;
+                gameSavesDir = idSaveDir + @"\" + storefrontSubFolder;
                 if (!Directory.Exists(gameSavesDir))
                     Directory.CreateDirectory(gameSavesDir);
                 else
@@ -129,8 +140,8 @@ namespace FarCry5SaveManager
             // If both exist return both info
             if (IDDirectoryContainsSaves(filePath))
             {
-                string savePath1 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
-                string savePath2 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
+                string savePath1 = filePath + @"\" + storefrontSubFolder + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
+                string savePath2 = filePath + @"\" + storefrontSubFolder + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
                 FileInfo saveInfo1 = new FileInfo(savePath1);
                 FileInfo saveInfo2 = new FileInfo(savePath2);
 
@@ -160,8 +171,8 @@ namespace FarCry5SaveManager
         public bool IDDirectoryContainsSaves(string filePath)
         {
             // Check for saves 1 and 2 but include game folder
-            string savePath1 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
-            string savePath2 = filePath + @"\" + Constants.GameIDs.FC5_GAME_ID + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
+            string savePath1 = filePath + @"\" + storefrontSubFolder + @"\" + Constants.DefaultSaveFileNames.FC5_FIRST_SAVE_NAME;
+            string savePath2 = filePath + @"\" + storefrontSubFolder + @"\" + Constants.DefaultSaveFileNames.FC5_SECOND_SAVE_NAME;
 
             return File.Exists(savePath1) && File.Exists(savePath2);
         }
@@ -210,7 +221,7 @@ namespace FarCry5SaveManager
                 //remove characters filenames don't like
                 timeStr = timeStr.Replace(':', '_');
                 dateStr = dateStr.Replace('/', '_');
-                String folderName = Constants.GameIDs.FC5_GAME_ID + "_" + dateStr + "_" + timeStr;
+                String folderName = storefrontSubFolder + "_" + dateStr + "_" + timeStr;
                 folderName = folderName.Replace(" ", "");
 
                 // Create folder and save path for deletion upon failure
@@ -219,7 +230,7 @@ namespace FarCry5SaveManager
                 direc = backupLocation;
 
                 // Copy the files to backup location
-                string sourceDir = idSaveDir + @"\" + Constants.GameIDs.FC5_GAME_ID;
+                string sourceDir = idSaveDir + @"\" + storefrontSubFolder;
                 DirectoryInfo dirInfo = new DirectoryInfo(sourceDir);
                 FileInfo[] files = dirInfo.GetFiles();
 

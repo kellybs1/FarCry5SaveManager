@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -7,12 +8,16 @@ namespace FarCry5SaveManager
     public partial class MainForm : Form
     {
         private SaveController saveController;
+        private List<RadioButton> storeFrontRadioButtons = new List<RadioButton>();
         public MainForm()
         {
             InitializeComponent();
             saveController = new SaveController(textBoxFolderPath, listBoxUbiIDs, listBoxBackedUpSaves,
                                                 textBoxSaveInfo, textBoxBackupTitle, buttonBackup,
-                                                buttonDeleteSave, buttonLoadSave);
+                                                buttonDeleteSave, buttonLoadSave, radioButtonSteam);
+
+            storeFrontRadioButtons.Add(radioButtonSteam);
+            storeFrontRadioButtons.Add(radioButtonUPlay);
         }
 
 
@@ -83,6 +88,21 @@ namespace FarCry5SaveManager
 
                 Cursor = Cursors.Default;
             }
+        }
+
+
+        private void radioButtonSteam_CheckedChanged(object sender, EventArgs e)
+        {
+            updateStorefront();
+        }
+
+
+        private void updateStorefront()
+        {
+            if (radioButtonSteam.Checked)
+                saveController.UpdateStorefront(Constants.Storefront.Steam);
+            else if (radioButtonUPlay.Checked)
+                saveController.UpdateStorefront(Constants.Storefront.UPlay);
         }
     }
 }

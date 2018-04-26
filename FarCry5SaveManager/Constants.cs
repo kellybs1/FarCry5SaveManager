@@ -16,10 +16,16 @@ namespace FarCry5SaveManager
             public static string FILES_NOT_FOUND = "Both save files not found";
         }
 
+        public enum Storefront
+        {
+            UPlay,
+            Steam
+        }
 
         public struct GameIDs
         {
-            public static string FC5_GAME_ID = "1803";
+            public static string FC5_UPLAY_GAME_ID = "1803";
+            public static string FC5_STEAM_GAME_ID = "856";
         }
 
 
