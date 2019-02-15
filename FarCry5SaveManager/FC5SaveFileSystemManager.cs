@@ -29,13 +29,7 @@ namespace FarCry5SaveManager
         // Properties
         //---------------------------------
 
-        public bool IsAUbiSavesFolder
-        {
-            get
-            {
-                return SaveGamesFolderPath.EndsWith("savegames");
-            }
-        }
+        public bool IsAUbiSavesFolder => SaveGamesFolderPath.EndsWith( "savegames" );
 
 
         public string SaveGamesFolderPath { get; set; }
@@ -60,31 +54,59 @@ namespace FarCry5SaveManager
         }
 
 
-        public string[] GetListOfBackedUpSaves
+        public string[] GetListOfBackedUpSaves( Constants.GameChoice gameChoice )
         {
-            get
+            // Use the AppData location to get a list of backed up saves
+            string appData = Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData );
+            string myPath = ""; 
+
+            switch ( gameChoice )
             {
-                // Use the AppData location to get a list of backed up saves
-                string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_NAME;
+                case Constants.GameChoice.FarCry5:
+                    myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_FC5;
+                    break;
+
+                case Constants.GameChoice.FarCryNewDawn:
+                    myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_FCND;
+                    break;
+            }
+
                 if (Directory.Exists(myPath))
                     return Directory.GetDirectories(myPath);
                 else
                     return null;
-            }
         }
 
 
         // Public methods
         //---------------------------------
 
-        public void UpdateStorefrontSubfolder(Constants.Storefront storefront)
+        public void UpdateStorefrontSubfolder(Constants.Storefront storefront, Constants.GameChoice gameChoice)
         {
-            if (storefront == Constants.Storefront.Steam)
-                storefrontSubFolder = Constants.GameIDs.FC5_STEAM_GAME_ID;
-            else
-                storefrontSubFolder = Constants.GameIDs.FC5_UPLAY_GAME_ID;
+            switch ( gameChoice )
+            {
+                case Constants.GameChoice.FarCry5:
+                    {
+
+                        if ( storefront == Constants.Storefront.Steam )
+                            storefrontSubFolder = Constants.GameIDs.FC5_STEAM_GAME_ID;
+                        else
+                            storefrontSubFolder = Constants.GameIDs.FC5_UPLAY_GAME_ID;
+                        break;
+                    }
+
+                case Constants.GameChoice.FarCryNewDawn:
+                    {
+
+                        if ( storefront == Constants.Storefront.Steam )
+                            storefrontSubFolder = Constants.GameIDs.FCND_STEAM_GAME_ID;
+                        else
+                            storefrontSubFolder = Constants.GameIDs.FCND_UPLAY_GAME_ID;
+                        break;
+                    }
+            }
         }
+
 
         public bool OverWriteCurrentSaveWithBackup(string idSaveDir, string backupSaveDir)
         {
@@ -202,14 +224,26 @@ namespace FarCry5SaveManager
         }
 
 
-        public bool BackupSave(string idSaveDir, string title)
+        public bool BackupSave(string idSaveDir, string title, Constants.GameChoice gameChoice)
         {
             string direc = "";
             try
             {
                 // Generate the Appdata folder where we save our backups
-                string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_NAME;
+                string appData = Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData );
+                string myPath = "";
+
+                switch ( gameChoice )
+                {
+                    case Constants.GameChoice.FarCry5:
+                        myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_FC5;
+                        break;
+
+                    case Constants.GameChoice.FarCryNewDawn:
+                        myPath = appData + @"\" + Constants.SystemFolderPaths.APPDATA_FOLDER_FCND;
+                        break;
+                }
+
 
                 if (!Directory.Exists(myPath))
                     Directory.CreateDirectory(myPath);

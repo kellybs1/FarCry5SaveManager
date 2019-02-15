@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -12,12 +13,19 @@ namespace FarCry5SaveManager
         public MainForm()
         {
             InitializeComponent();
+
+            storeFrontRadioButtons.Add( radioButtonSteam );
+            storeFrontRadioButtons.Add( radioButtonUPlay );
+
+            // Fill combobox with supported games
+            comboBoxGameChoice.DataSource = Enum.GetValues( typeof( Constants.GameChoice ) );
+            comboBoxGameChoice.SelectedIndex = 0;
+
             saveController = new SaveController(textBoxFolderPath, listBoxUbiIDs, listBoxBackedUpSaves,
                                                 textBoxSaveInfo, textBoxBackupTitle, buttonBackup,
-                                                buttonDeleteSave, buttonLoadSave, radioButtonSteam);
+                                                buttonDeleteSave, buttonLoadSave, radioButtonSteam, comboBoxGameChoice);
 
-            storeFrontRadioButtons.Add(radioButtonSteam);
-            storeFrontRadioButtons.Add(radioButtonUPlay);
+
         }
 
 
@@ -101,9 +109,14 @@ namespace FarCry5SaveManager
         private void updateStorefront()
         {
             if (radioButtonSteam.Checked)
-                saveController.UpdateStorefront(Constants.Storefront.Steam);
+                saveController.UpdateStorefront(Constants.Storefront.Steam, (Constants.GameChoice)comboBoxGameChoice.SelectedItem);
             else if (radioButtonUPlay.Checked)
-                saveController.UpdateStorefront(Constants.Storefront.UPlay);
+                saveController.UpdateStorefront(Constants.Storefront.UPlay, (Constants.GameChoice)comboBoxGameChoice.SelectedItem);
+        }
+
+        private void comboBoxGameChoice_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            updateStorefront();
         }
     }
 }

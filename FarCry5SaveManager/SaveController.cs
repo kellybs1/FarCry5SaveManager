@@ -24,6 +24,7 @@ namespace FarCry5SaveManager
         private Button buttonDelete;
         private Button buttonLoadSave;
         private RadioButton checkChangedTriggerButton;
+        private ComboBox gameChoiceComboBox;
         // Arrays for storing full paths to locations
         private string[] ubiIDsFullPaths;
         private string[] backedUpSavesFullPaths;
@@ -40,7 +41,8 @@ namespace FarCry5SaveManager
                                 Button formButtonBackup,
                                 Button formButtonDelete,
                                 Button formButtonLoadSave,
-                                RadioButton formCheckChangedTriggerButton)
+                                RadioButton formCheckChangedTriggerButton,
+                                ComboBox formGameChoiceComboBox)
         {
 
             // Don't fuck up the order of initialisation... it's... fragile
@@ -54,7 +56,8 @@ namespace FarCry5SaveManager
             buttonDelete = formButtonDelete;
             buttonLoadSave = formButtonLoadSave;
             checkChangedTriggerButton = formCheckChangedTriggerButton;
-            UpdateStorefront(Constants.Storefront.UPlay); // This is set uPlay as form loads with uPlay selected 
+            gameChoiceComboBox = formGameChoiceComboBox;
+            UpdateStorefront(Constants.Storefront.UPlay, Constants.GameChoice.FarCry5); // This is set uPlay as form loads with uPlay selected 
             updateUbiIDsStore();
             updateUbiIDsList();
             ubiIDsFullPaths = new string[0];
@@ -81,6 +84,8 @@ namespace FarCry5SaveManager
             listBoxUbiIDs.SelectedIndexChanged += updateLoadButtonStateHandler;
             listBoxUbiIDs.SelectedIndexChanged += deselectLoadAndUpdateButtonsHandler;
             textBoxSaveFolderPath.TextChanged += updateLoadButtonStateHandler;
+            formGameChoiceComboBox.SelectedIndexChanged += updateBackedUpSaveGamesListHandler;
+            formGameChoiceComboBox.SelectedIndexChanged += updateSaveGameInfoHandler;
         }
 
 
@@ -111,7 +116,7 @@ namespace FarCry5SaveManager
         {
             int index = listBoxUbiIDs.SelectedIndex;
             string pathToSave = ubiIDsFullPaths[index];
-            return saveFileSystemManager.BackupSave(pathToSave, textBoxTitle.Text);
+            return saveFileSystemManager.BackupSave(pathToSave, textBoxTitle.Text, (Constants.GameChoice)gameChoiceComboBox.SelectedItem);
         }
 
 
@@ -124,9 +129,9 @@ namespace FarCry5SaveManager
         }
 
 
-        public void UpdateStorefront(Constants.Storefront storefront)
+        public void UpdateStorefront(Constants.Storefront storefront, Constants.GameChoice gameChoice)
         {
-            saveFileSystemManager.UpdateStorefrontSubfolder(storefront);
+            saveFileSystemManager.UpdateStorefrontSubfolder(storefront, gameChoice);
         }
 
 
@@ -163,7 +168,7 @@ namespace FarCry5SaveManager
         // Fetch a list of previously backed up games
         private void updateBackedUpSavesStore()
         {
-            backedUpSavesFullPaths = saveFileSystemManager.GetListOfBackedUpSaves;
+            backedUpSavesFullPaths = saveFileSystemManager.GetListOfBackedUpSaves( (Constants.GameChoice)gameChoiceComboBox.SelectedItem );
         }
 
 

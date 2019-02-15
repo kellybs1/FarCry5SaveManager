@@ -22,16 +22,26 @@ namespace FarCry5SaveManager
             Steam
         }
 
+        public enum GameChoice
+        {
+            FarCry5,
+            FarCryNewDawn,
+        }
+
+
         public struct GameIDs
         {
             public static string FC5_UPLAY_GAME_ID = "1803";
+            public static string FCND_UPLAY_GAME_ID = "5210";
             public static string FC5_STEAM_GAME_ID = "856";
+            public static string FCND_STEAM_GAME_ID = "5211";
         }
 
 
         public struct SystemFolderPaths
         {
-            public static string APPDATA_FOLDER_NAME = @"GoofyIdiotSoft\.farcry5savemanager";
+            public static string APPDATA_FOLDER_FC5 = @"GoofyIdiotSoft\.farcry5savemanager\fc5";
+            public static string APPDATA_FOLDER_FCND = @"GoofyIdiotSoft\.farcry5savemanager\newdawn";
             public static string DEFAULT_SAVEGAME_LOCATION = @"C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames";
         }
 

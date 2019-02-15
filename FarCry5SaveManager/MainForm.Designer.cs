@@ -47,6 +47,8 @@
             this.groupBoxStorefront = new System.Windows.Forms.GroupBox();
             this.radioButtonUPlay = new System.Windows.Forms.RadioButton();
             this.radioButtonSteam = new System.Windows.Forms.RadioButton();
+            this.comboBoxGameChoice = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBoxStorefront.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,9 +117,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(10, 255);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Far Cry 5 current save";
+            this.label3.Text = "Current save";
             // 
             // textBoxSaveInfo
             // 
@@ -240,12 +242,32 @@
             this.radioButtonSteam.UseVisualStyleBackColor = true;
             this.radioButtonSteam.CheckedChanged += new System.EventHandler(this.radioButtonSteam_CheckedChanged);
             // 
+            // comboBoxGameChoice
+            // 
+            this.comboBoxGameChoice.FormattingEnabled = true;
+            this.comboBoxGameChoice.Location = new System.Drawing.Point(362, 33);
+            this.comboBoxGameChoice.Name = "comboBoxGameChoice";
+            this.comboBoxGameChoice.Size = new System.Drawing.Size(167, 21);
+            this.comboBoxGameChoice.TabIndex = 17;
+            this.comboBoxGameChoice.SelectedIndexChanged += new System.EventHandler(this.comboBoxGameChoice_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(362, 14);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Game";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(548, 510);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.comboBoxGameChoice);
             this.Controls.Add(this.groupBoxStorefront);
             this.Controls.Add(this.textBoxBackupTitle);
             this.Controls.Add(this.label5);
@@ -296,6 +318,8 @@
         private System.Windows.Forms.GroupBox groupBoxStorefront;
         private System.Windows.Forms.RadioButton radioButtonUPlay;
         private System.Windows.Forms.RadioButton radioButtonSteam;
+        private System.Windows.Forms.ComboBox comboBoxGameChoice;
+        private System.Windows.Forms.Label label6;
     }
 }
 
