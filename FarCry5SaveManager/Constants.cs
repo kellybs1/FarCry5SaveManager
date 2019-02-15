@@ -13,7 +13,7 @@ namespace FarCry5SaveManager
             public static string NO_SAVES_FOUND = "No saves found";
             public static string NO_BACKED_UP_SAVES_FOUND = "No backed up saves found";
             public static string FILE_NOT_FOUND = "File not found";
-            public static string FILES_NOT_FOUND = "Both save files not found";
+            public static string FILES_NOT_FOUND = "Both save files not found - Have you selected your ID above?";
         }
 
         public enum Storefront
